@@ -16,7 +16,7 @@ const PORT = 8080;
 
 //mongoose
 const ecommerce = async () => {
-    mongoose.connect('mongodb+srv://ecommerce:<3EC7JaZSOLAOeqMp>@cluster0.uqroc5l.mongodb.net/?retryWrites=true&w=majority')
+    mongoose.connect("mongodb+srv://proyectointegrador:q9sHiS6YE5R6NJ0Q@coderhouse.y9dsp4s.mongodb.net/?retryWrites=true&w=majority")
     console.log("Conectado a la base de datos")
 }
 
