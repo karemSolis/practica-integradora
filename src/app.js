@@ -8,6 +8,10 @@ import cartRouter from "./router/cart.routes.js";
 import productRouter from "./router/product.routes.js";
 import messagesRoutes from "./router/messages.router.js"
 
+import  multer  from "multer";
+//import path from "path";
+
+
 
 
 
@@ -51,6 +55,36 @@ es una ruta absoluta al directorio de vistas que utiliza __dirname que he import
 app.use("/", express.static(__dirname + "/public")) /*con __dirname le índico que en puclic estarán los archivos estáticos como el 
 style.css y realtimeproduct.js dentro de public*/
 
+//multer
+
+
+/*escribir diferentes configuraciones de multer para guardar los archivos en una carpeta, multer requiere que se haga una carpeta para guardar 
+sus archivos esta se debe llamar uploads*/
+
+const storage = multer.diskStorage({ //storage invoca a multer y tiene un método nativo que es disjStorage
+    //recibe el destino de los archivos que va a encontrar
+    destination:(req, file, cb ) =>{ //tres parámetros 
+        cb(null, __dirname + "/public/uploads") //cb es = a calback, el calback tiene dos parámetros null y uploads
+    },
+    
+    filename: (req, file, cb) => { //tres parámetros
+        const timestamp = Date.now() //obtiene la hora actual en milisegundos, de esta forma nos garantiza que el archivo sea único y no pise otro archivo
+        const originalname = file.originalname//almacena nombre original del archivo para mantener una parte de este 
+        const ext = path.extname(originalname) /*rutas ext por externo, path.extname, lo usamos para obtener la extension del archivo original ya que necesito
+        saber si es zip, pdf, lo que sea*/
+        cb(null, `${timestamp}-${originalname}`) //null o lo que tenemos almacenado en timestamp o en originalname
+        }
+    })
+    
+    const upload = multer({storage})
+    //servir del archivo.html de la carpeta public
+    app.use(express.static(path.join(__dirname, 'public')))
+
+    
+    //ruta para manejar la subida del archivo
+    app.post("/app", upload.single("archivo"), (req, res) => {//uploads.single("archivo") tb es un meddlewars
+        res.json({message: "Archivo subido exitosamente"})
+    }) 
 
 
 
@@ -59,11 +93,11 @@ app.get("/chat", async(req, res) => {
         title: "chat",
     })
 })
-app.get("/upload", async (req, res) => {
-    res.render("upload", {
-        title: "upload",
-    })
-})
+
+ app.get("/app", async (req, res) => {
+     res.render("app", {         title: "upload",
+     })
+ })
 
 app.use("/api/carts", cartRouter)
 app.use((req, res, next) => {
