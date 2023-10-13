@@ -8,7 +8,7 @@ const cartsSchema = new mongoose.Schema({
     producto: {type: String, max:20, required:true},
     descripcion: {type: String, max:20, required:true},
     cantidad: {type: Number, max:20, required:true},
-    valor: {type: Number, max:20, required:true}
+    valor: {type: Number, max:500000, required:true}
     //el id no se agrega porque se agregará automáticamente desde atlas
 });
 
