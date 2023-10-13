@@ -4,11 +4,11 @@ const productsCollection = "products" // así mismo se debe llamar en la base de
 //acá se define el esquema de products
 const productsSchema = new mongoose.Schema({
 
-    producto:String,
-    descripcion:String,
-    cantidad:Number,
-    valor:Number
+    producto:{type: String, max:20, required:true},
+    descripcion:{type: String, max:20, required:true},
+    cantidad:{type: Number, max:20, required:true},
+    valor: {type: Number, max:20, required:true},
 
-})
+});
 
 export const productsmodel = mongoose.model(productsCollection, productsSchema)
