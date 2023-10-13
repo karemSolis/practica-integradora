@@ -1,49 +1,42 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('username-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-    const form = document.getElementById('username-form');
-    const userInput = document.getElementById('username');
-    const messageInput = document.getElementById('messages');
-    const successMessageDiv = document.getElementById('success-message');
-    const errorMessageDiv = document.getElementById('error-message');
+document.getElementById("message-form").addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    const userInputElement = document.getElementById("user");
+    const messageInputElement = document.getElementById("messages");
+    const messageStatusElement = document.getElementById("message-status");
 
-        const user = userInput.value;
-        const message = messageInput.value;
+    const user = userInputElement.value;
+    const message = messageInputElement.value;
 
+    try {
+        const response = await fetch("/api/messages", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user, message }),
+        });
 
-        try {
-            const response = await fetch('/api/messages', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user, message }),
-            });
+        if (response.ok) {
+            const responseData = await response.json();
+            const successMessage = responseData.message;
 
-            if (response.ok) {
-                // Manejar la respuesta exitosa
-                const responseData = await response.json();
-                const successMessage = responseData.message;
+            
+            messageStatusElement.textContent = "Mensaje enviado con éxito: " + successMessage;
 
-                successMessageDiv.textContent = successMessage;
-                errorMessageDiv.textContent = '';
+           
+            userInputElement.value = '';
+            messageInputElement.value = '';
+        } else {
+            console.error('Error al enviar el mensaje');
 
-                userInput.value = '';
-                messageInput.value = '';
-            } else {
-
-                errorMessageDiv.textContent = 'Error al enviar el mensaje';
-                successMessageDiv.textContent = '';
-            }
-        } catch (error) {
-
-            console.error('Error de red:', error);
-
-            errorMessageDiv.textContent = 'Error de red. Inténtelo de nuevo.';
-            successMessageDiv.textContent = '';
+           
+            messageStatusElement.textContent = "Error al enviar el mensaje";
         }
-    });
-})})
+    } catch (error) {
+        console.error('Error de red:', error);
+
+        
+        messageStatusElement.textContent = "Error de red. Inténtelo de nuevo.";
+    }
+});

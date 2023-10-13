@@ -17,7 +17,7 @@ cartRouter.get('/', async (req, res) => {
 });
 
 cartRouter.post('/', async (req, res) => {
-    
+
     let { producto, descripcion, cantidad, valor } = req.body;
     console.log("Datos recibidos:", req.body);
 

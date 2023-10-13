@@ -59,7 +59,6 @@ app.use((req, res, next) => {
     console.log("Nueva solicitud recibida:", req.method, req.originalUrl);
     next();
 });
-
 app.use("/api/messages", messagesRoutes)
 app.use("/api/products", productRouter) 
 

@@ -7,15 +7,17 @@
 </head>
 <body>
     <h1>chat</h1>
-    <form action="/api/messages" method="POST">
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" required>
+    <div id="user-messages">
+    <form action="/src/public/js/chat.js" method="POST">
+        <label for="email">usuario:</label>
+        <input type="email" id="email" name="user" required>
         <br>
-        <label for="message">Mensaje:</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
+        <label for="message">mensaje:</label>
+        <textarea id="message" name="messages" rows="4" required></textarea>
         <br>
         <button type="submit">Enviar</button>
     </form>
+    </div>
     <script src="/src/public/js/chat.js"> </script>
 </body>
 </html>

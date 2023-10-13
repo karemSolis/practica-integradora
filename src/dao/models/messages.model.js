@@ -5,7 +5,7 @@ const messagesCollection = "messages" // así mismo se debe llamar en la base de
 const messagesSchema = new mongoose.Schema({
 
     user:String,
-    message:String
+    messages:String
 
 });
 

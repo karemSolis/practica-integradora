@@ -3,41 +3,58 @@ import { messagesmodel } from "../dao/models/messages.model.js";
 
 const messagesRoutes = Router();
 
-messagesRoutes.get('/', async (req, res) => { 
+messagesRoutes.get('/', async (req, res) => {
     try {
         let messages = await messagesmodel.find();
         res.send({ result: "success", payload: messages });
     } catch (error) {
         console.log(error);
-    }ññ
+        res.status(500).send({ result: "error", error: "Internal server error" });
+    }
 });
 
 messagesRoutes.post('/', async (req, res) => {
-    let { user, messages, } = req.body;
+    let { user, messages } = req.body;
 
-    if (!user|| !messages ) {
-        res.send({ status: "error", error: "Missing body params" });
+    if (!user || !messages) {
+        res.status(400).send({ result: "error", error: "Missing body params" });
     }
 
-    let result = await messagesmodel.create({ user, messages, });
-    res.send({ result: "success", payload: result });
+    try {
+        let result = await messagesmodel.create({ user, messages });
+        res.send({ result: "success", payload: result });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ result: "error", error: "Internal server error" });
+    }
 });
 
 messagesRoutes.put('/:messages_id', async (req, res) => {
     let { messages_id } = req.params;
 
     let messagesToReplace = req.body;
-    if (messagesToReplace.producto || messagesToReplace.descripcion || messagesToReplace.cantidad || messagesToReplace.valor) {
-        res.send({ status: "error", error: "Missing body params" });
+    if (!messagesToReplace.user || !messagesToReplace.messages) {
+        res.status(400).send({ result: "error", error: "Missing body params" });
     }
-    let result = await messagesmodel.updateOne({ _id: messages_id }, messagesToReplace);
-    res.send({ result: "success", payload: result });
+
+    try {
+        let result = await messagesmodel.updateOne({ _id: messages_id }, messagesToReplace);
+        res.send({ result: "success", payload: result });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ result: "error", error: "Internal server error" });
+    }
 });
 
 messagesRoutes.delete('/:messages_id', async (req, res) => {
     let { messages_id } = req.params;
-    let result = await messagesmodel.deleteOne({ _id: messages_id });
-    res.send({ result: "success", payload: result });
+    try {
+        let result = await messagesmodel.deleteOne({ _id: messages_id });
+        res.send({ result: "success", payload: result });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ result: "error", error: "Internal server error" });
+    }
 });
 
 export default messagesRoutes;
