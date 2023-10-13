@@ -9,6 +9,8 @@ import productRouter from "./router/product.routes.js";
 import messagesRoutes from "./router/messages.router.js"
 
 
+
+
 //servidor 
 const app = express();
 const PORT = 8080; 
@@ -43,14 +45,23 @@ app.set("view engine", "hbs"); /*acá le digo al server que los archivos de view
 como handlebars, eso significa que express usará handlebars para renderizar las vistas*/
 app.set("views", path.resolve(__dirname + "/views")); /*y además obvio debo decirle donde encontrar esos archivos, estableciendo la ubicación de las vistas
 es una ruta absoluta al directorio de vistas que utiliza __dirname que he importado desde utils.js, así que express buscará en ese directorio*/
+
+
 //middleware para archivos estáticos
 app.use("/", express.static(__dirname + "/public")) /*con __dirname le índico que en puclic estarán los archivos estáticos como el 
 style.css y realtimeproduct.js dentro de public*/
 
- //ruta a la página principal
+
+
+
 app.get("/chat", async(req, res) => {
     res.render("chat", { 
         title: "chat",
+    })
+})
+app.get("/upload", async (req, res) => {
+    res.render("upload", {
+        title: "upload",
     })
 })
 

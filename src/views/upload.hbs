@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Subir archivos</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data"><!--debo seleccionar la opción multipart/form-data, aquí método y ruta -->
+        <label for="archivo">Selecciona un archivo</label>
+        <input type="file" id="archivo" name="archivo" required>
+        <button type="submit">Subir archivos</button>
+    </form>
+    <script src="js/upload.js"></script>
+
+</body>
+</html>

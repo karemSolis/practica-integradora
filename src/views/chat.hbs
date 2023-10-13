@@ -8,7 +8,7 @@
 <body>
     <h1>chat</h1>
     <div id="user-messages">
-    <form action="/src/public/js/chat.js" method="POST">
+    <form action="/api/messages" method="post"> 
         <label for="email">usuario:</label>
         <input type="email" id="email" name="user" required>
         <br>
@@ -18,6 +18,6 @@
         <button type="submit">Enviar</button>
     </form>
     </div>
-    <script src="/src/public/js/chat.js"> </script>
+    <script src="js/chat.js"> </script>
 </body>
 </html>
