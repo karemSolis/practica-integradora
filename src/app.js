@@ -32,7 +32,7 @@ app.use(express.urlencoded({extended:true}));
 //mongoose
 const ecommerce = async () => {
     try {
-        await mongoose.connect("mongodb+srv://proyectointegrador:q9sHiS6YE5R6NJ0Q@coderhouse.y9dsp4s.mongodb.net/?retryWrites=true&w=majority");
+        await mongoose.connect("mongodb+srv://soliskarem:8ZCtHpFdS5efORKR@coder.akmkbke.mongodb.net/?retryWrites=true&w=majority");
         console.log("Conectado a la base de datos");
     } catch (error) {
         console.error("Error al conectar a la base de datos:", error);
